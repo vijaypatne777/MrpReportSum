@@ -1,0 +1,195 @@
+<mvc:View id="idHomeView" controllerName="PP.mrpReport.controller.Home" xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified" xmlns:c="sap.ui.core" xmlns:m="sap.m" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:minp="sap.m.Input" xmlns:citem="sap.ui.core.Item" xmlns:litem="sap.ui.core.ListItem" xmlns:l="sap.ui.layout" height="100%">
+	<m:Shell id="shell">
+		<m:App id="app">
+			<m:pages>
+				<m:Page title="{i18n>title}" showHeader="true" enableScrolling="true" class="sapUiContentPadding">
+					<l:VerticalLayout class="sapUiContentPadding" width="100%">
+						<fb:FilterBar reset="onReset" class="sapUiSmallMarginBottom" search="onSearch" showRestoreButton="true" showClearButton="true">
+							<fb:filterGroupItems>
+								<fb:FilterGroupItem id="idMatnr" groupName="__$INTERNAL$" name="A" label="Material" partOfCurrentVariant="true" visibleInFilterBar="true">
+									<fb:control>
+										<m:MultiInput submit="onSubmitInput" required="true" id="multiInput2" width="70%" showValueHelp="true" showSuggestion="true"
+											placeholder="{i18n>Material number}" valueHelpRequest="onHelpTable"></m:MultiInput>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem id="idPlant" groupName="__$INTERNAL$" name="B" label="Plant" partOfCurrentVariant="true" visibleInFilterBar="true">
+									<fb:control>
+										<m:Input required="true" id="idFieldPlant" type="Text" placeholder="{i18n>MRP Plant}"/>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem id="idMRPArea" groupName="__$INTERNAL$" name="C" label="MRP Area" partOfCurrentVariant="true" visibleInFilterBar="true">
+									<fb:control>
+										<m:Input required="true" id="idFieldMRPArea" type="Text" placeholder="{i18n>MRP Area}"/>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<!--<fb:FilterGroupItem groupName="G1" groupTitle="Other Selection" name="A" label="Date" labelTooltip="please select date range"-->
+								<!--	partOfCurrentVariant="false" visibleInFilterBar="false">-->
+								<!--	<fb:control>-->
+								<!--		<m:DateRangeSelection id="idDRS3" width="100%"/>-->
+								<!--	</fb:control>-->
+								<!--</fb:FilterGroupItem>-->
+								<fb:FilterGroupItem groupName="G1" groupTitle="Other Selection" name="B" label="MRP Control" labelTooltip="please select MRP Control"
+									partOfCurrentVariant="true">
+									<fb:control>
+										<m:MultiInput submit="onMRPControl" required="true" id="idMRPControl" width="70%" showSuggestion="true"></m:MultiInput>
+									</fb:control>
+								</fb:FilterGroupItem>
+							</fb:filterGroupItems>
+						</fb:FilterBar>
+					</l:VerticalLayout>
+					<Table id="idTable" rows="{botTabModel>/BotList}" selectionMode="MultiToggle" visibleRowCount="8" paste="onPaste" ariaLabelledBy="title">
+						<extension>
+							<m:HBox>
+								<m:items>
+									<m:ToolbarSpacer/>
+									<c:Icon src="sap-icon://business-objects-experience" alt="Cart" size="1.25rem"/>
+									<m:Title text="MRP Planing Dashboard" titleStyle="H3" class="sapUiTinyMarginBeginEnd"/>
+								</m:items>
+								<m:Button icon="sap-icon://download" press="onDataExport"/>
+							</m:HBox>
+						</extension>
+						<rowSettingsTemplate>
+							<RowSettings highlight="{botTabModel>status}"/>
+						</rowSettingsTemplate>
+						<columns>
+							<Column width="8rem" sortProperty="Material" showSortMenuEntry="true">
+								<m:Label text="Material"/>
+								<template>
+									<m:Text text="{botTabModel>Material}"/>
+								</template>
+							</Column>
+							<Column width="6rem" sortProperty="Material" showSortMenuEntry="true">
+								<m:Label text="Plant "/>
+								<template>
+									<m:Text text="{botTabModel>MRPPlant}"/>
+								</template>
+							</Column>
+							<Column width="6rem">
+								<m:Label text="MRP Area "/>
+								<template>
+									<m:Text text="{botTabModel>MRPArea}"/>
+								</template>
+							</Column>
+							<Column width="6rem">
+								<m:Label text="MRP Controller "/>
+								<template>
+									<m:Text text="{botTabModel>MRPController}"/>
+								</template>
+							</Column>
+							<Column width="12rem">
+								<m:Label text="Material Name "/>
+								<template>
+									<m:Text text="{botTabModel>MaterialName}"/>
+								</template>
+							</Column>
+							<Column width="12rem">
+								<m:Label text="Supplier "/>
+								<template>
+									<m:Text text="{botTabModel>MRPElementBusinessPartner}"/>
+								</template>
+							</Column>
+							<Column width="7rem">
+								<m:Label text="End Date "/>
+								<template>
+									<m:Text text="{botTabModel>MRPElementAvailyOrRqmtDate}"/>
+								</template>
+							</Column>
+							<Column width="7rem">
+								<m:Label text="Availablity"/>
+								<template>
+									<m:Text text="{botTabModel>MRPAvailableQuantity}"/>
+								</template>
+							</Column>
+							<Column width="7rem">
+								<m:Label text="Availablity Date"/>
+								<template>
+									<m:Text text="{botTabModel>MRPAvailableQuantityDate}"/>
+								</template>
+							</Column>
+							<Column width="6rem">
+								<m:Label text="SafetyStk "/>
+								<template>
+									<m:Text text="{botTabModel>SafetyStk}"/>
+								</template>
+							</Column>
+							<Column width="6rem">
+								<m:Label text="Stock "/>
+								<template>
+									<m:Text text="{botTabModel>Stock}"/>
+								</template>
+							</Column>
+							<Column width="6rem">
+								<m:Label text="AvailableStock "/>
+								<template>
+									<m:Text text="{botTabModel>AvailableStock}"/>
+								</template>
+							</Column>
+							<Column width="6rem">
+								<m:Label text="DependReq "/>
+								<template>
+									<m:Text text="{botTabModel>DependReq}"/>
+								</template>
+							</Column>
+							<Column width="6rem">
+								<m:Label text="PurchReq "/>
+								<template>
+									<m:Text text="{botTabModel>PurchReq}"/>
+								</template>
+							</Column>
+							<Column autoResizable="true">
+								<m:Label text="Plndorder "/>
+								<template>
+									<m:Text text="{botTabModel>Plndorder}"/>
+								</template>
+							</Column>
+							<Column autoResizable="true">
+								<m:Label text="IndReqmt "/>
+								<template>
+									<m:Text text="{botTabModel>IndReqmt}"/>
+								</template>
+							</Column>
+							<Column autoResizable="true">
+								<m:Label text="Order "/>
+								<template>
+									<m:Text text="{botTabModel>Order}"/>
+								</template>
+							</Column>
+							<Column autoResizable="true">
+								<m:Label text="ProdOrder "/>
+								<template>
+									<m:Text text="{botTabModel>ProdOrder}"/>
+								</template>
+							</Column>
+							<Column autoResizable="true">
+								<m:Label text="Delivery "/>
+								<template>
+									<m:Text text="{botTabModel>Delivery}"/>
+								</template>
+							</Column>
+							<Column autoResizable="true">
+								<m:Label text="POitem "/>
+								<template>
+									<m:Text text="{botTabModel>POitem}"/>
+								</template>
+							</Column>
+							<Column autoResizable="true">
+								<m:Label text="OrderRes "/>
+								<template>
+									<m:Text text="{botTabModel>OrderRes}"/>
+								</template>
+							</Column>
+							<Column autoResizable="true">
+								<m:Label text="RetrnsItem "/>
+								<template>
+									<m:Text text="{botTabModel>RetrnsItem}"/>
+								</template>
+							</Column>
+						</columns>
+					</Table>
+				</m:Page>
+			</m:pages>
+		</m:App>
+	</m:Shell>
+</mvc:View>
