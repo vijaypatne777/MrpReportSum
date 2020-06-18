@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Material List">
+		<SearchField id="searchField" width="100%" placeholder="Search for..." enableSuggestions="true" search=".onSearch" suggest=".onSuggestLive"
+			suggestionItems="{ path: 'botModelSugg>/items', sorter: { path: 'botModelSugg>Material' } }">
+			<SuggestionItem text="{botModelSugg>Material}" description="{path:'botModelSugg>MaterialName'}" key="{botModelSugg>Material}"/>
+		</SearchField>
+		<Table width="850px" id="botTabDialog" class="sapUiSizeCompact" growing="true" growingScrollToLoad="true" growingThreshold="50"
+			items="{botTabModel3>/items}" visible="false" mode="MultiSelect">
+			<columns>
+				<Column demandPopin="true" hAlign="Left" width="10%">
+					<header>
+						<Label design="Bold" text="Material"/>
+					</header>
+				</Column>
+				<Column demandPopin="true" hAlign="Left" width="10%">
+					<header>
+						<Label design="Bold" text="MRP Material Name"/>
+					</header>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem id="favTableItemTemplate3" type="Active">
+					<cells>
+						<Text text="{botTabModel3>Material}"/>
+					</cells>
+					<cells>
+						<Text text="{botTabModel3>MaterialName}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<buttons>
+			<Button text="Cancel" press="onCancel" type="Emphasized"/>
+			<Button text="Confirm" press="onConfirm" type="Emphasized"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>
